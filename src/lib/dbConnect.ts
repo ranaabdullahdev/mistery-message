@@ -17,11 +17,10 @@ async function dbConnect(): Promise<void> {
   }
   try {
     const db = await mongoose.connect(
-      "mongodb+srv://abdullah1816:<mongodb1816>@cluster0.hmixa7q.mongodb.net/mistery-message",
+      "mongodb+srv://abdullah1816:mongodb1816@cluster0.hmixa7q.mongodb.net/mistery-message",
       {}
     );
 
-    console.log(db);
     connection.isConnected = db.connections[0].readyState;
 
     console.log("DB Connected Successfully");
