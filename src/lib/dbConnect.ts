@@ -16,10 +16,7 @@ async function dbConnect(): Promise<void> {
     return;
   }
   try {
-    const db = await mongoose.connect(
-      "mongodb+srv://abdullah1816:mongodb1816@cluster0.hmixa7q.mongodb.net/mistery-message",
-      {}
-    );
+    const db = await mongoose.connect( process.env.MONGO_DB_URI ||'', {});
 
     connection.isConnected = db.connections[0].readyState;
 
