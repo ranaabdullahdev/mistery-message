@@ -1,20 +1,17 @@
-'use client'
-import { useSession, signIn, signOut } from "next-auth/react"
+"use client";
 
-export default function Component() {
-  const { data: session } = useSession()
-  if (session) {
-    return (
-      <>
-        Signed as  {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
-  }
-  return (
-    <>
-      Not signed in <br />
-      <button className="bg-orange-300 px-3  py-1 rounded m-4" onClick={() => signIn()}>Sign in</button>
-    </>
-  )
-}
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { useState } from "react";
+
+const page = () => {
+  const [userName, setUserName] = useState("");
+  const [usernameMessage, setUsernameMessage] = useState("");
+  const [isCheckingUserName, setIsCheckingUserName] = useState(false);
+  const [isSubmiting, setIsSubmiting] = useState(false);
+
+  return <div>page</div>;
+};
+
+export default page;
