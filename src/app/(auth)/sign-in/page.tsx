@@ -18,7 +18,6 @@ const page = () => {
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isCheckingUserName, setIsCheckingUserName] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
-  const [data, setData] = useState('');
 
   const debouncedUsername = useDebounceValue(username, 300);
   const { toast } = useToast();
