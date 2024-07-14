@@ -84,6 +84,7 @@ const page = () => {
             Join Mistery Messages
           </h1>
           <p className="mb-4">Sign Up to enjoy the adventure of Mistery App</p>
+          <p className="mb-4">Annoyumus Messaging App</p>
         </div>
       </div>
     </div>
