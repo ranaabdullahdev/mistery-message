@@ -16,6 +16,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             By{" "}
+            Abdullah
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"

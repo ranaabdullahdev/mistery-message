@@ -13,6 +13,7 @@ import { SchemaOptionsVirtualsPropertyType } from "mongoose";
 import { signUpSchema } from "@/schemas/signUpSchema";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+import { Form } from "@/components/ui/form";
 const page = () => {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
@@ -56,7 +57,7 @@ const page = () => {
     checkUsernameUnique();
   }, [debouncedUsername]);
 
-  console.log(debouncedUsername)
+  console.log(debouncedUsername);
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmiting(true);
     try {
@@ -87,6 +88,12 @@ const page = () => {
           <p className="mb-4">Sign Up to enjoy the adventure of Mistery App</p>
           <p className="mb-4">Annoyumus Messaging App</p>
         </div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6"
+          ></form>
+        </Form>
       </div>
     </div>
   );
