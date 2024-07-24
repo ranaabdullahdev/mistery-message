@@ -123,7 +123,7 @@ const signUp = () => {
                         : "text-red-500"
                     }`}
                   >
-                     {usernameMessage}
+                    {usernameMessage}
                   </p>
                   <FormMessage />
                 </FormItem>
