@@ -1,4 +1,4 @@
-''
+'use client'
 import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ import React from "react";
 import { Form, useForm } from "react-hook-form";
 import { z } from "zod";
 
+
+
 const VerifyAccount = () => {
   const router = useRouter();
   const params = useParams<{ username: string }>();
@@ -21,6 +23,8 @@ const VerifyAccount = () => {
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
   });
+
+  
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
