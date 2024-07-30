@@ -38,6 +38,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
       `/api/delete-messages/${message._id}`
     );
     toast({ title: response?.data.message });
+    //@ts-ignore
     onMessageDelete(message._id);
   };
 
