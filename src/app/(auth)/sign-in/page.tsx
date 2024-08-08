@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import {  useState } from "react";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signInSchema } from "@/schemas/signInSchema";
@@ -20,9 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 
-
 const signInpage = () => {
-
   const [isSubmiting, setIsSubmiting] = useState(false);
 
   const { toast } = useToast();
@@ -30,39 +28,34 @@ const signInpage = () => {
 
   //zod implmentation
 
-  
-//@ts-nocheck
-
+  //@ts-nocheck
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      identifier: "",
+      username: "",
       password: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-  const result=  await signIn('credentials',{
-      redirect:false, 
-      identifier:data.identifier,
-      password:data.password,
-    })
+    const result = await signIn("credentials", {
+      redirect: false,
+      identifier: data.username,
+      password: data.password,
+    });
 
-if(result?.error){
-  toast({
-    title:'Login Failed',
-    description:"Incorrect Username or Password",
-    variant:'destructive'
-  })
-  if(result?.url){
-    router.replace('/dashboard')
-  }
-}
-  
+    if (result?.error) {
+      toast({
+        title: "Login Failed",
+        description: "Incorrect Username or Password",
+        variant: "destructive",
+      });
+      if (result?.url) {
+        router.replace("/dashboard");
+      }
+    }
   };
 
-
-  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8  bg-white rounded-lg shadow-md">
@@ -74,9 +67,8 @@ if(result?.error){
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            
             <FormField
-              name="identifier"
+              name="username"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
@@ -103,7 +95,7 @@ if(result?.error){
               )}
             />
             <Button type="submit" disabled={isSubmiting}>
-             Sign   In
+              Sign In
             </Button>
           </form>
         </Form>
