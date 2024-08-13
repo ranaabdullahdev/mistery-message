@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signInSchema } from "@/schemas/signInSchema";
 
 import {
@@ -22,9 +22,9 @@ import { signIn } from "next-auth/react";
 
 const signInpage = () => {
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const router = useRouter();
 
   const { toast } = useToast();
-  const router = useRouter();
 
   //zod implmentation
 
@@ -50,12 +50,14 @@ const signInpage = () => {
         description: "Incorrect Username or Password",
         variant: "destructive",
       });
-      if (result?.url) {
-        router.replace("/dashboard");
-      }
+    }
+
+    if (result?.ok) {
+      console.log(result, "first");
+
+      window.location.href = "/dashboard";
     }
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8  bg-white rounded-lg shadow-md">

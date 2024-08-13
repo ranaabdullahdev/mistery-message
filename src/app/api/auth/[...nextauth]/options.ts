@@ -4,20 +4,19 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import bcrypt from "bcryptjs";
 
-
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      id: "credentials",
+      // id: "credentials",
       name: "Credentials",
 
       credentials: {
-        email: { label: "Email", type: "text" },
+        identfier: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-
       async authorize(credentials: any): Promise<any> {
+        console.log(credentials, "IN SIGN IN::::");
+
         await dbConnect();
         try {
           const user = await UserModel.findOne({
@@ -78,5 +77,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret:
+    "rw28VrgRfWHrE5Qhl8GElkEq9pPCviAjQ+gpV6Fl4FY=" ||
+    (process.env.NEXTAUTH_SECRET as string),
 };

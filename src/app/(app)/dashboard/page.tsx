@@ -23,8 +23,36 @@ const page = () => {
 
   const { toast } = useToast();
 
-  const handleDelete = async (messageId: string) => {
-    setMessages(messages.filter((message) => message._id !== messageId));
+  // const handleDelete = async (messageId: string) => {
+  //   setMessages(messages.filter((message) => message._id !== messageId));
+  // };
+  const handleDeleteMessage = async (messageId: string) => {
+    try {
+      setLoading(true);
+      const response = await axios.delete(`/api/delete-message/${messageId}`);
+      if (response.data.success) {
+        toast({
+          title: "Message deleted",
+          description: "Your message has been deleted successfully",
+          variant: "default",
+        });
+        setMessages(messages.filter((m) => m._id !== messageId));
+      } else {
+        toast({
+          title: "Error deleting message",
+          description: response.data.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error deleting message",
+        description: error?.message ?? "Failed to delete message",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const { data: session } = useSession();
@@ -112,9 +140,10 @@ const page = () => {
       });
     }
   };
-  const { username } = session?.user as User;
+  console.log(session, "Session");
+
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const profileUrl = `${baseUrl}/u/${username}`;
+  const profileUrl = `${baseUrl}/u/${session?.user?.username}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
@@ -152,7 +181,7 @@ const page = () => {
           disabled={isSwitchLoading}
         />
         <span className="ml-2">
-          Accept Messages: {acceptMessages ? "ON" : "OFF"}
+          Accept Messages: {!acceptMessages ? "ON" : "OFF"}
         </span>
       </div>
 
@@ -177,9 +206,9 @@ const page = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message?.id||index}
+              key={message?.id || index}
               message={message}
-              onMessageDelete={handleDelete}
+              onDeleteMessage={handleDeleteMessage}
             />
           ))
         ) : (
